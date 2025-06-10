@@ -5,5 +5,5 @@ type Coordenada = (Int, Int)
 data Mago = Mago
   { posicion :: Coordenada
   , energia :: Int
-  , camino :: [(Coordenada, Int)]
+  , visitadas :: [Coordenada]
   } deriving (Show, Eq)
