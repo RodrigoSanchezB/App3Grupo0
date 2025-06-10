@@ -1,20 +1,36 @@
 name: App3Grupo0
 version: 0.1.0.0
-github: "RodrigoSanchezB/App3Grupo0"
-license: "MIT"
-author: "RodrigoSanchezB"
-maintainer: "mariorrod@gmail.com"
+github: RodrigoSanchezB/App3Grupo0
+license: MIT
+author: ""
+maintainer: ""
+extra-source-files:
+  - README.md
 
-extra-source-files: []
-
-dependencies:
-  - base >= 4.7 && < 5
-
-default-extensions: []
+library:
+  source-dirs: src
+  dependencies:
+    - base >= 4.7 && < 5
+    - containers
+    - mtl
 
 executables:
   App3Grupo0-exe:
     main: Main.hs
     source-dirs: src
-    ghc-options:
-      - -Wall
+    ghc-options: -Wall -Wno-unused-imports
+    dependencies:
+      - App3Grupo0
+      - base >= 4.7 && < 5
+      - containers
+      - mtl
+
+tests:
+  App3Grupo0-test:
+    main: spec.hs
+    source-dirs: test
+    ghc-options: -Wall
+    dependencies:
+      - App3Grupo0
+      - base
+      - hspec

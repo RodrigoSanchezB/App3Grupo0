@@ -10,6 +10,16 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_App3Grupo0 */
+/* package App3Grupo0-0.1.0.0 */
+#ifndef VERSION_App3Grupo0
+#define VERSION_App3Grupo0 "0.1.0.0"
+#endif /* VERSION_App3Grupo0 */
+#ifndef MIN_VERSION_App3Grupo0
+#define MIN_VERSION_App3Grupo0(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  1 || \
+  (major1) == 0 && (major2) == 1 && (minor) <= 0)
+#endif /* MIN_VERSION_App3Grupo0 */
 /* package base-4.19.2.0 */
 #ifndef VERSION_base
 #define VERSION_base "4.19.2.0"
@@ -20,6 +30,26 @@
   (major1) == 4 && (major2) <  19 || \
   (major1) == 4 && (major2) == 19 && (minor) <= 2)
 #endif /* MIN_VERSION_base */
+/* package containers-0.6.8 */
+#ifndef VERSION_containers
+#define VERSION_containers "0.6.8"
+#endif /* VERSION_containers */
+#ifndef MIN_VERSION_containers
+#define MIN_VERSION_containers(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  6 || \
+  (major1) == 0 && (major2) == 6 && (minor) <= 8)
+#endif /* MIN_VERSION_containers */
+/* package mtl-2.3.1 */
+#ifndef VERSION_mtl
+#define VERSION_mtl "2.3.1"
+#endif /* VERSION_mtl */
+#ifndef MIN_VERSION_mtl
+#define MIN_VERSION_mtl(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  3 || \
+  (major1) == 2 && (major2) == 3 && (minor) <= 1)
+#endif /* MIN_VERSION_mtl */
 
 /* tool gcc-14.0.6 */
 #ifndef TOOL_VERSION_gcc
@@ -93,7 +123,7 @@
 #endif /* MIN_TOOL_VERSION_runghc */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "App3Grupo0-0.1.0.0-34VzU0ixVmp1h1G5pIEevI-App3Grupo0-exe"
+#define CURRENT_COMPONENT_ID "App3Grupo0-0.1.0.0-9JTJunbpb185MgibfOMUXV-App3Grupo0-exe"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

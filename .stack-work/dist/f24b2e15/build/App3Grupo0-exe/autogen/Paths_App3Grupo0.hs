@@ -47,7 +47,7 @@ getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: 
 
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 bindir     = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\bin"
-libdir     = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\lib\\x86_64-windows-ghc-9.8.4\\App3Grupo0-0.1.0.0-34VzU0ixVmp1h1G5pIEevI-App3Grupo0-exe"
+libdir     = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\lib\\x86_64-windows-ghc-9.8.4\\App3Grupo0-0.1.0.0-9JTJunbpb185MgibfOMUXV-App3Grupo0-exe"
 dynlibdir  = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\lib\\x86_64-windows-ghc-9.8.4"
 datadir    = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\share\\x86_64-windows-ghc-9.8.4\\App3Grupo0-0.1.0.0"
 libexecdir = "C:\\Users\\mario\\Downloads\\App3Grupo0\\.stack-work\\install\\4443688b\\libexec\\x86_64-windows-ghc-9.8.4\\App3Grupo0-0.1.0.0"

@@ -1,12 +1,18 @@
+C:\Users\mario\AppData\Local\Programs\stack\x86_64-windows\ghc-9.8.4\lib\x86_64-windows-ghc-9.8.4\rts-1.0.2\include\ghcversion.h:
+  hash: 95162794a3bf5e6167631fdd41a509846597231d523d0f21a76713b1f801373c
+C:\Users\mario\Downloads\App3Grupo0\.stack-work\dist\f24b2e15\build\App3Grupo0-exe\autogen\Paths_App3Grupo0.hs:
+  hash: 47439f74266c2673edecdf9f4ce2bfba33bc7febf15c44f06cd24dee6febbd29
+C:\Users\mario\Downloads\App3Grupo0\.stack-work\dist\f24b2e15\build\App3Grupo0-exe\autogen\cabal_macros.h:
+  hash: 84b6ba2b8c34af800e876efa8866cbed841f9467b864cd32eb4715c34575d049
 C:\Users\mario\Downloads\App3Grupo0\App3Grupo0.cabal:
-  hash: b24d002f5cbc090c11a60d8ee65e8f52278fbac864b0a42ee14d12e70674fd35
+  hash: 3e75e025cebd3cad7692e6fc0f50ce68f72c84e486d32cac46f6ed5726ef881e
+C:\Users\mario\Downloads\App3Grupo0\README.md:
+  hash: 088b342d92ccf5cf7ca95da1fa6663c160e7a25d695649437a110347fe787e82
 C:\Users\mario\Downloads\App3Grupo0\package.yaml:
-  hash: 7c5cdd74f211efc48f4e6f1c00b0f59f4acd28a49f3324337ce7abd05ba4d4bc
+  hash: e7160cb9e24950a25cfba52441bcdc407f4a0a50539c7caf81fe73507712bfc6
 C:\Users\mario\Downloads\App3Grupo0\src\Bosque.hs:
-  hash: b8e06d6589d9e4b653282647948c2ae6c7ee8da4b89893294073a2feaaeba36f
+  hash: afa9f3d37e83ab9815968b5106d2cbcf0823f70f77fa35c85510c42751774d3c
 C:\Users\mario\Downloads\App3Grupo0\src\Mago.hs:
-  hash: a3864bccfc084dc4bc4db48712a21dc0f2cfe7390e29ef244ef1d437e345b1cc
+  hash: a96fd17e242d03baa20087c0b8c909571a0628e21235dfeef11ecb17455cc147
 C:\Users\mario\Downloads\App3Grupo0\src\Main.hs:
-  hash: a7a61390650dc6622578a43fa25fa18a395e45057f2c7d54e0f2783f29ede7bb
-C:\Users\mario\Downloads\App3Grupo0\src\Utils.hs:
-  hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  hash: 4612320b2a821cf334abe31b4e00534a7e4063b3120f5a2b7edd8169b4097122
