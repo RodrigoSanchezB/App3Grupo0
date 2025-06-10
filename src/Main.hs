@@ -2,6 +2,7 @@ module Main where
 
 import Mago
 import Bosque
+import System.IO (hFlush, stdout)
 
 bosqueEjemplo :: Bosque
 bosqueEjemplo =
@@ -15,7 +16,10 @@ bosqueEjemplo =
 
 main :: IO ()
 main = do
-  let energiaInicial = 12
+  putStr "Ingrese la energía inicial del mago: "
+  hFlush stdout
+  entrada <- getLine
+  let energiaInicial = read entrada :: Int
   case buscarMejorCamino bosqueEjemplo energiaInicial of
     Nothing -> putStrLn "No hay camino válido"
     Just camino -> do
