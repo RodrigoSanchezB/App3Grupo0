@@ -1,0 +1,20 @@
+name: App3Grupo0
+version: 0.1.0.0
+github: "RodrigoSanchezB/App3Grupo0"
+license: "MIT"
+author: "RodrigoSanchezB"
+maintainer: "mariorrod@gmail.com"
+
+extra-source-files: []
+
+dependencies:
+  - base >= 4.7 && < 5
+
+default-extensions: []
+
+executables:
+  App3Grupo0-exe:
+    main: Main.hs
+    source-dirs: src
+    ghc-options:
+      - -Wall
