@@ -1,73 +1,86 @@
-module Bosque where
+module Bosque (Bosque, buscarMejorCamino) where
 
 import Mago
-import qualified Data.Map as Map
+import qualified Data.Map.Strict as Map
+import Data.List (maximumBy)
+import Data.Ord (comparing)
+import Data.Maybe (fromMaybe)
 
 type Bosque = [[Int]]
-type Memo = Map.Map (Coordenada, Int) (Maybe [(Coordenada, Int)])
+type Energia = Int
+type Camino = [(Coordenada, Energia)]
+type Memo = Map.Map (Coordenada, Energia) (Maybe Camino)
 
--- Verifica si una coordenada está dentro de los límites del bosque
+-- Dimensiones del bosque
+alto :: Bosque -> Int
+alto = length
+
+ancho :: Bosque -> Int
+ancho bosque = if null bosque then 0 else length (head bosque)
+
+-- Verifica si la coordenada está dentro del bosque
 dentroLimites :: Bosque -> Coordenada -> Bool
-dentroLimites bosque (x, y) =
-  x >= 0 && y >= 0 && x < length bosque && y < length (head bosque)
+dentroLimites bosque (x,y) =
+  x >= 0 && y >= 0 && x < alto bosque && y < ancho bosque
 
--- Valor de la celda
+-- Valor de la celda en la coordenada
 valorCelda :: Bosque -> Coordenada -> Int
-valorCelda bosque (x, y) = (bosque !! x) !! y
+valorCelda bosque (x,y) = (bosque !! x) !! y
 
--- Movimientos posibles, sin volver a visitadas para arriba e izquierda
-movimientosValidos :: Bosque -> [Coordenada] -> Coordenada -> [Coordenada]
-movimientosValidos bosque visitadas (x, y) =
-  filter (\c -> dentroLimites bosque c && notElem c visitadas)
-    [ (x+1, y)       -- abajo
-    , (x, y+1)       -- derecha
-    , (x+1, y+1)     -- diagonal abajo-derecha
-    , (x-1, y)       -- arriba (solo si no visitada)
-    , (x, y-1)       -- izquierda (solo si no visitada)
-    ]
+-- Movimientos permitidos según las reglas del enunciado
+movimientos :: Bosque -> [Coordenada] -> Coordenada -> [Coordenada]
+movimientos bosque visitados (x,y) = filter dentro (derechaAbajo ++ condicionales)
+  where
+    -- Siempre permitidos (si están dentro del bosque)
+    derechaAbajo = [(x+1,y), (x,y+1), (x+1,y+1)]
+    
+    -- Solo si no se ha visitado antes
+    condicionales = filter (`notElem` visitados) [(x-1,y), (x,y-1)]
+    
+    dentro c = dentroLimites bosque c
 
--- Calcula la nueva energía con penalizaciones
-energiaNueva :: Int -> Int -> Coordenada -> Coordenada -> Int
-energiaNueva actual valor origen destino =
-  let penalizacionDiagonal = if destino == (fst origen + 1, snd origen + 1) then 2 else 0
-      penalizacionTrampa = if valor == 0 then 3 else 0
-  in actual + valor - penalizacionDiagonal - penalizacionTrampa
+-- Calcula nueva energía con penalizaciones
+energiaNueva :: Energia -> Int -> Coordenada -> Coordenada -> Energia
+energiaNueva e valor (xO,yO) (xD,yD) =
+  let penalDiag = if (xD == xO + 1) && (yD == yO + 1) then 2 else 0
+      penalTrampa = if valor == 0 then 3 else 0
+  in e + valor - penalDiag - penalTrampa
 
--- Busca el mejor camino desde posición y energía dadas (con memo)
-buscarMejorCaminoDesde :: Bosque -> Mago -> Memo -> (Maybe [(Coordenada, Int)], Memo)
-buscarMejorCaminoDesde bosque (Mago pos e visitadas) memo
-  | e < 0 = (Nothing, memo)
-  | pos == destino = (Just [(pos, e)], Map.insert (pos, e) (Just [(pos, e)]) memo)
+-- Busca el mejor camino usando memoización
+buscarMejorCaminoMemo :: Bosque -> Mago -> Memo -> (Maybe Camino, Memo)
+buscarMejorCaminoMemo bosque mago memo
+  | energia mago < 0 = (Nothing, memo)
+  | pos mago == destino = (Just [(pos mago, energia mago)], memo)
   | otherwise =
-      case Map.lookup (pos, e) memo of
+      case Map.lookup (pos mago, energia mago) memo of
         Just res -> (res, memo)
         Nothing ->
-          let coordsVisitadas = pos : visitadas
-              vecinos = movimientosValidos bosque coordsVisitadas pos
-              (mejorCamino, memoFinal) = foldl
-                (\(mejor, m) siguiente ->
-                   let v = valorCelda bosque siguiente
-                       eNueva = energiaNueva e v pos siguiente
-                       magoNuevo = Mago siguiente eNueva coordsVisitadas
-                       (resCam, m2) = buscarMejorCaminoDesde bosque magoNuevo m
+          let sigs = movimientos bosque (visitados mago) (pos mago)
+              (mejoresCaminos, memo') = foldl
+                (\(acc, m) c ->
+                   let val = valorCelda bosque c
+                       eNueva = energiaNueva (energia mago) val (pos mago) c
+                       magoNuevo = Mago c eNueva (pos mago : visitados mago)
+                       (resCam, m2) = buscarMejorCaminoMemo bosque magoNuevo m
                    in case resCam of
-                        Nothing -> (mejor, m2)
-                        Just camino ->
-                          if mejor == Nothing || energiaTotal camino > energiaTotal (unwrap mejor)
-                            then (Just ((pos, e) : camino), m2)
-                            else (mejor, m2)
-                ) (Nothing, memo) vecinos
-              memoNuevo = Map.insert (pos, e) mejorCamino memoFinal
-          in (mejorCamino, memoNuevo)
+                        Just camino -> (camino : acc, m2)
+                        Nothing -> (acc, m2)
+                )
+                ([], memo) sigs
+          in if null mejoresCaminos
+             then (Nothing, Map.insert (pos mago, energia mago) Nothing memo')
+             else
+               let mejor = maximumBy (comparing ultimaEnergia) mejoresCaminos
+                   caminoCompleto = (pos mago, energia mago) : mejor
+                   memoFinal = Map.insert (pos mago, energia mago) (Just caminoCompleto) memo'
+               in (Just caminoCompleto, memoFinal)
   where
-    destino = (length bosque - 1, length (head bosque) - 1)
-    energiaTotal = sum . map snd
-    unwrap (Just x) = x
-    unwrap Nothing = error "unwrap Nothing"
+    destino = (alto bosque - 1, ancho bosque - 1)
+    ultimaEnergia camino = snd (last camino)
 
--- Función pública para obtener el mejor camino desde el inicio
-buscarMejorCamino :: Bosque -> Mago -> [(Coordenada, Int)]
-buscarMejorCamino bosque mago =
-  case buscarMejorCaminoDesde bosque mago Map.empty of
-    (Just camino, _) -> camino
-    (Nothing, _) -> []
+-- Función pública para llamar desde Main
+buscarMejorCamino :: Bosque -> Energia -> Maybe Camino
+buscarMejorCamino bosque energiaInicial =
+  let magoInicial = Mago (0,0) (energiaInicial + valorCelda bosque (0,0)) []
+      (res, _) = buscarMejorCaminoMemo bosque magoInicial Map.empty
+  in res

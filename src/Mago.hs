@@ -1,9 +1,9 @@
-module Mago where
+module Mago (Mago(..), Coordenada) where
 
 type Coordenada = (Int, Int)
 
 data Mago = Mago
-  { posicion :: Coordenada
+  { pos :: Coordenada
   , energia :: Int
-  , visitadas :: [Coordenada]
-  } deriving (Show, Eq)
+  , visitados :: [Coordenada]
+  } deriving (Show)
